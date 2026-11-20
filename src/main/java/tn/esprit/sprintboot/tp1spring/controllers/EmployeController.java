@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.sprintboot.tp1spring.domain.Employe;
 import tn.esprit.sprintboot.tp1spring.dto.EmployeDTO;
 import tn.esprit.sprintboot.tp1spring.services.IEmploye;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +16,7 @@ public class EmployeController {
     private final IEmploye employeService;
 
     @PostMapping("/add")
-    public EmployeDTO addEmploye(@RequestBody Employe employe) {
+    public EmployeDTO addEmploye(@Valid @RequestBody EmployeDTO employe) {
         return employeService.addEmploye(employe);
     }
 
@@ -31,7 +31,7 @@ public class EmployeController {
     }
 
     @PutMapping("/update")
-    public EmployeDTO updateEmploye(@RequestBody Employe employe) {
+    public EmployeDTO updateEmploye(@Valid @RequestBody EmployeDTO employe) {
         return employeService.updateEmploye(employe);
     }
 

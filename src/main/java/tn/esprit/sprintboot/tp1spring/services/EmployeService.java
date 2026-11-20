@@ -19,8 +19,23 @@ public class EmployeService implements IEmploye{
     private final AgenceRepository ar;
 
     @Override
-    public EmployeDTO addEmploye(Employe e) {
+    public EmployeDTO addEmploye(EmployeDTO dto) {
+
+        Employe e = new Employe();
+
+        e.setNom(dto.getNom());
+        e.setPrenom(dto.getPrenom());
+        e.setRole(dto.getRole());
+
+        if (dto.getIdAgence() != null) {
+            Agence agence = ar.findById(dto.getIdAgence())
+                    .orElseThrow(() -> new RuntimeException("Agence introuvable"));
+
+            e.setAgence(agence);
+        }
+
         Employe saved = er.save(e);
+
         return convertToDto(saved);
     }
     @Override
@@ -29,9 +44,23 @@ public class EmployeService implements IEmploye{
     }
 
     @Override
-    public EmployeDTO updateEmploye(Employe e) {
-        Employe updated = er.save(e);
-        return convertToDto(updated);
+    public EmployeDTO updateEmploye(EmployeDTO dto) {
+
+        Employe e = er.findById(dto.getIdEmploye())
+                .orElseThrow(() -> new RuntimeException("Employé introuvable"));
+
+        e.setNom(dto.getNom());
+        e.setPrenom(dto.getPrenom());
+        e.setRole(dto.getRole());
+
+        if (dto.getIdAgence() != null) {
+            Agence agence = ar.findById(dto.getIdAgence())
+                    .orElseThrow(() -> new RuntimeException("Agence introuvable"));
+
+            e.setAgence(agence);
+        }
+
+        return convertToDto(er.save(e));
     }
 
     @Override

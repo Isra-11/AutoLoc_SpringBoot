@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface IEmploye {
 
-    EmployeDTO addEmploye(Employe e);
+    EmployeDTO addEmploye(EmployeDTO  e);
 
     void deleteEmploye(Long ide);
 
-    EmployeDTO updateEmploye(Employe e);
+    EmployeDTO updateEmploye(EmployeDTO  e);
 
     EmployeDTO findEmployeById(Long ide);
 
